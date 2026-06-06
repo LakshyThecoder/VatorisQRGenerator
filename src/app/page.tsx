@@ -538,13 +538,13 @@ export default function Home() {
     if (!Html5Qrcode) return;
     const scanner = new Html5Qrcode('reader');
     scanner.scanFile(file, true)
-      .then(text => {
+      .then((text: string) => {
         playSound('success');
         showToast('QR Code Decoded!');
         setScanResult(text);
         scanner.clear();
       })
-      .catch(err => {
+      .catch((err: any) => {
         playSound('error');
         console.error(err);
         setScanResult('Error: Could not decode QR code. Please try a cleaner image.');
@@ -742,7 +742,7 @@ export default function Home() {
         case 'text': setInputText(desc); break;
         case 'phone': setPhoneNum(desc.replace('tel:', '')); break;
         case 'sms':
-          const smsP = desc.match(/^SMSTO:([^:]+):(.*)$/s);
+          const smsP = desc.match(/^SMSTO:([^:]+):([\s\S]*)$/);
           if (smsP) { setSmsNumber(smsP[1]); setSmsMsg(smsP[2]); }
           else setSmsMsg(desc);
           break;
@@ -963,7 +963,7 @@ export default function Home() {
                         <input type="text" value={vcardLast} onChange={(e) => setVcardLast(e.target.value)} placeholder="Doe" />
                       </div>
                     </div>
-                    <div class="form-group-row">
+                    <div className="form-group-row">
                       <div className="form-group">
                         <label>Mobile Phone</label>
                         <input type="tel" value={vcardPhone} onChange={(e) => setVcardPhone(e.target.value)} placeholder="+1 555-0199" />
