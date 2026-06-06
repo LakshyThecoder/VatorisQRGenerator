@@ -19,8 +19,8 @@ export default function Home() {
   useEffect(() => {
     setIsClient(true);
     // Dynamically load client-only modules to prevent SSR crashes
-    import('qr-code-styling').then((mod) => setQRCodeStyling(mod.default));
-    import('html5-qrcode').then((mod) => setHtml5Qrcode(mod.Html5Qrcode));
+    import('qr-code-styling').then((mod) => setQRCodeStyling(() => mod.default));
+    import('html5-qrcode').then((mod) => setHtml5Qrcode(() => mod.Html5Qrcode));
   }, []);
 
   // --- STATE VARIABLES ---
