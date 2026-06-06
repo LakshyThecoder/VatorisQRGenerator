@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code Studio - Premium Permanent & Custom QR Codes</title>
+  <meta name="description" content="Generate beautiful, permanent, non-expiring QR codes with custom styling, logos, gradients, real-world mockups, batch generation, and scanning capabilities. Runs 100% offline.">
+  <link rel="stylesheet" href="style.css">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- TOAST CONTAINER FOR FLOATING NOTIFICATIONS -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo-container">
+      <div class="logo-icon">QR</div>
+      <div class="logo-text">
+        QR STUDIO
+        <span class="logo-subtitle">Permanent & Custom</span>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <button class="sound-toggle-btn" id="sound-toggle" title="Toggle Sound Effects">
+        <i data-lucide="volume-2"></i>
+      </button>
+      <button class="theme-toggle-btn" id="theme-toggle" title="Toggle Dark/Light Mode">
+        <i data-lucide="moon"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- TAB NAVIGATION -->
+  <nav class="tab-navigation">
+    <button class="tab-btn active" data-tab="create-tab">
+      <i data-lucide="qr-code"></i> Create Studio
+    </button>
+    <button class="tab-btn" data-tab="scan-tab">
+      <i data-lucide="scan-line"></i> Scanner
+    </button>
+    <button class="tab-btn" data-tab="batch-tab">
+      <i data-lucide="layers"></i> Batch Generator
+    </button>
+    <button class="tab-btn" data-tab="history-tab">
+      <i data-lucide="history"></i> History
+    </button>
+  </nav>
+
+  <!-- MAIN APP CONTAINER -->
+  <main class="app-container">
+
+    <!-- ============================================ -->
+    <!-- TAB 1: CREATE QR CODE                        -->
+    <!-- ============================================ -->
+    <div id="create-tab" class="tab-pane active">
+      <div class="studio-grid">
+        
+        <!-- LEFT COLUMN: CONTROLS & STYLING -->
+        <div class="glass-card">
+          
+          <!-- SECTION 1: CONTENT TYPE SELECTOR -->
+          <div class="panel-section">
+            <h3 class="panel-title"><i data-lucide="file-type"></i> Select Data Type</h3>
+            <div class="type-selector-grid">
+              <button class="type-btn active" data-type="url">
+                <i data-lucide="link"></i> URL / Link
+              </button>
+              <button class="type-btn" data-type="text">
+                <i data-lucide="align-left"></i> Text
+              </button>
+              <button class="type-btn" data-type="wifi">
+                <i data-lucide="wifi"></i> Wi-Fi
+              </button>
+              <button class="type-btn" data-type="vcard">
+                <i data-lucide="contact"></i> Contact
+              </button>
+              <button class="type-btn" data-type="email">
+                <i data-lucide="mail"></i> Email
+              </button>
+              <button class="type-btn" data-type="sms">
+                <i data-lucide="message-square-text"></i> SMS
+              </button>
+              <button class="type-btn" data-type="geo">
+                <i data-lucide="map-pin"></i> Location
+              </button>
+              <button class="type-btn" data-type="phone">
+                <i data-lucide="phone"></i> Phone
+              </button>
+            </div>
+            
+            <!-- DYNAMIC INPUT FORMS -->
+            <div class="content-forms">
+              
+              <!-- URL Form -->
+              <div id="form-url" class="type-form active">
+                <div class="form-group">
+                  <label for="input-url">Website URL (Static & Permanent)</label>
+                  <input type="url" id="input-url" placeholder="https://example.com" value="https://example.com">
+                </div>
+              </div>
+
+              <!-- Text Form -->
+              <div id="form-text" class="type-form">
+                <div class="form-group">
+                  <label for="input-text">Text Content</label>
+                  <textarea id="input-text" placeholder="Type or paste plain text here..."></textarea>
+                </div>
+              </div>
+
+              <!-- Wi-Fi Form -->
+              <div id="form-wifi" class="type-form">
+                <div class="form-group">
+                  <label for="input-wifi-ssid">Network Name (SSID)</label>
+                  <input type="text" id="input-wifi-ssid" placeholder="HomeNetwork">
+                </div>
+                <div class="form-group-row">
+                  <div class="form-group">
+                    <label for="input-wifi-pass">Password</label>
+                    <input type="password" id="input-wifi-pass" placeholder="••••••••">
+                  </div>
+                  <div class="form-group">
+                    <label for="input-wifi-enc">Security Type</label>
+                    <select id="input-wifi-enc">
+                      <option value="WPA">WPA/WPA2</option>
+                      <option value="WEP">WEP</option>
+                      <option value="nopass">Unsecured (Open)</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- vCard Form -->
+              <div id="form-vcard" class="type-form">
+                <div class="form-group-row">
+                  <div class="form-group">
+                    <label for="input-vcard-first">First Name</label>
+                    <input type="text" id="input-vcard-first" placeholder="John">
+                  </div>
+                  <div class="form-group">
+                    <label for="input-vcard-last">Last Name</label>
+                    <input type="text" id="input-vcard-last" placeholder="Doe">
+                  </div>
+                </div>
+                <div class="form-group-row">
+                  <div class="form-group">
+                    <label for="input-vcard-phone">Mobile Phone</label>
+                    <input type="tel" id="input-vcard-phone" placeholder="+1 555-0199">
+                  </div>
+                  <div class="form-group">
+                    <label for="input-vcard-email">Email</label>
+                    <input type="text" id="input-vcard-email" placeholder="john.doe@example.com">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="input-vcard-org">Company / Organization</label>
+                  <input type="text" id="input-vcard-org" placeholder="Acme Corporation">
+                </div>
+                <div class="form-group">
+                  <label for="input-vcard-url">Website</label>
+                  <input type="url" id="input-vcard-url" placeholder="https://acme.org">
+                </div>
+              </div>
+
+              <!-- Email Form -->
+              <div id="form-email" class="type-form">
+                <div class="form-group">
+                  <label for="input-email-to">Recipient Email</label>
+                  <input type="text" id="input-email-to" placeholder="hello@company.com">
+                </div>
+                <div class="form-group">
+                  <label for="input-email-subject">Subject</label>
+                  <input type="text" id="input-email-subject" placeholder="Inquiry about services">
+                </div>
+                <div class="form-group">
+                  <label for="input-email-body">Email Message</label>
+                  <textarea id="input-email-body" placeholder="Write your message here..."></textarea>
+                </div>
+              </div>
+
+              <!-- SMS Form -->
+              <div id="form-sms" class="type-form">
+                <div class="form-group">
+                  <label for="input-sms-number">Phone Number</label>
+                  <input type="tel" id="input-sms-number" placeholder="+1 (555) 012-3456">
+                </div>
+                <div class="form-group">
+                  <label for="input-sms-msg">Message</label>
+                  <textarea id="input-sms-msg" placeholder="Write your text message here..."></textarea>
+                </div>
+              </div>
+
+              <!-- Geolocation Form -->
+              <div id="form-geo" class="type-form">
+                <div class="form-group-row">
+                  <div class="form-group">
+                    <label for="input-geo-lat">Latitude</label>
+                    <input type="number" step="any" id="input-geo-lat" placeholder="37.7749">
+                  </div>
+                  <div class="form-group">
+                    <label for="input-geo-lng">Longitude</label>
+                    <input type="number" step="any" id="input-geo-lng" placeholder="-122.4194">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Phone Form -->
+              <div id="form-phone" class="type-form">
+                <div class="form-group">
+                  <label for="input-phone-num">Phone Number</label>
+                  <input type="tel" id="input-phone-num" placeholder="+1 555-0100">
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- SECTION 2: CUSTOMIZATION ACCORDION -->
+          <div class="panel-section">
+            <h3 class="panel-title"><i data-lucide="palette"></i> Design & Style Customizer</h3>
+            
+            <!-- Accordion 1: Body Shape -->
+            <div class="style-accordion-item active">
+              <div class="style-accordion-header">
+                Body Shape Pattern
+                <i data-lucide="chevron-down" class="chevron-icon"></i>
+              </div>
+              <div class="style-accordion-content">
+                <div class="preset-shape-grid" id="body-shape-selector">
+                  <button class="shape-btn active" data-shape="square">Square</button>
+                  <button class="shape-btn" data-shape="dots">Dots</button>
+                  <button class="shape-btn" data-shape="rounded">Rounded</button>
+                  <button class="shape-btn" data-shape="extra-rounded">Extra-Rnd</button>
+                  <button class="shape-btn" data-shape="classy">Classy</button>
+                  <button class="shape-btn" data-shape="classy-rounded">Classy-Rnd</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Accordion 2: Eye Corner Markers -->
+            <div class="style-accordion-item">
+              <div class="style-accordion-header">
+                Corner Eye Design
+                <i data-lucide="chevron-down" class="chevron-icon"></i>
+              </div>
+              <div class="style-accordion-content">
+                <div class="form-group" style="margin-bottom: 1rem;">
+                  <label>Outer Eye Frame Shape</label>
+                  <div class="preset-shape-grid" id="eye-frame-selector">
+                    <button class="shape-btn active" data-eye-frame="square">Square</button>
+                    <button class="shape-btn" data-eye-frame="dot">Dot / Circle</button>
+                    <button class="shape-btn" data-eye-frame="rounded">Rounded</button>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Inner Eyeball Shape</label>
+                  <div class="preset-shape-grid" id="eye-ball-selector">
+                    <button class="shape-btn active" data-eye-ball="square">Square</button>
+                    <button class="shape-btn" data-eye-ball="dot">Dot / Circle</button>
+                    <button class="shape-btn" data-eye-ball="rounded">Rounded</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Accordion 3: Colors & Gradients -->
+            <div class="style-accordion-item">
+              <div class="style-accordion-header">
+                Foreground & Background Colors
+                <i data-lucide="chevron-down" class="chevron-icon"></i>
+              </div>
+              <div class="style-accordion-content color-picker-group">
+                <label>Foreground Color Type</label>
+                <div class="color-type-toggle">
+                  <button class="color-type-btn active" id="btn-color-solid">Solid Color</button>
+                  <button class="color-type-btn" id="btn-color-gradient">Gradient</button>
+                </div>
+
+                <!-- Solid Foreground -->
+                <div id="solid-color-controls" class="color-sub-panel active">
+                  <div class="picker-row">
+                    <div class="color-input-wrapper">
+                      <input type="color" id="fg-color" value="#0f172a">
+                    </div>
+                    <span class="text-color-code" id="fg-color-hex">#0F172A</span>
+                  </div>
+                </div>
+
+                <!-- Gradient Foreground -->
+                <div id="gradient-color-controls" class="color-sub-panel">
+                  <div class="form-group-row" style="margin-bottom: 0.75rem;">
+                    <div class="form-group">
+                      <label>Color Stop 1</label>
+                      <div class="picker-row">
+                        <div class="color-input-wrapper">
+                          <input type="color" id="fg-grad-1" value="#6366f1">
+                        </div>
+                        <span class="text-color-code" id="fg-grad-1-hex">#6366F1</span>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label>Color Stop 2</label>
+                      <div class="picker-row">
+                        <div class="color-input-wrapper">
+                          <input type="color" id="fg-grad-2" value="#ec4899">
+                        </div>
+                        <span class="text-color-code" id="fg-grad-2-hex">#EC4899</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group-row">
+                    <div class="form-group">
+                      <label for="grad-angle">Gradient Angle (deg)</label>
+                      <input type="number" id="grad-angle" value="45" min="0" max="360">
+                    </div>
+                    <div class="form-group">
+                      <label for="grad-type">Gradient Shape</label>
+                      <select id="grad-type">
+                        <option value="linear">Linear</option>
+                        <option value="radial">Radial</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <hr style="border: none; border-top: 1px solid var(--border-color); margin: 0.75rem 0;">
+
+                <!-- Background Color -->
+                <div class="form-group">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                    <label>Background Color</label>
+                    <label style="display: flex; align-items: center; gap: 0.35rem; font-weight: normal; cursor: pointer;">
+                      <input type="checkbox" id="bg-transparent" style="cursor: pointer;"> Transparent
+                    </label>
+                  </div>
+                  <div class="picker-row" id="bg-color-picker-row">
+                    <div class="color-input-wrapper">
+                      <input type="color" id="bg-color" value="#ffffff">
+                    </div>
+                    <span class="text-color-code" id="bg-color-hex">#FFFFFF</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Accordion 4: Logo Upload & Customization -->
+            <div class="style-accordion-item">
+              <div class="style-accordion-header">
+                Logo / Brand Embedding
+                <i data-lucide="chevron-down" class="chevron-icon"></i>
+              </div>
+              <div class="style-accordion-content">
+                <div class="form-group" style="margin-bottom: 1rem;">
+                  <label for="logo-file">Upload Logo Image (PNG, JPG, SVG)</label>
+                  <input type="file" id="logo-file" accept="image/*" style="padding: 0.5rem;">
+                </div>
+                
+                <div id="logo-controls" style="display: none;">
+                  <div class="form-group-row" style="margin-bottom: 1rem;">
+                    <div class="form-group">
+                      <label for="logo-size">Logo Size Scale</label>
+                      <input type="range" id="logo-size" min="0.05" max="0.3" step="0.01" value="0.15">
+                    </div>
+                    <div class="form-group">
+                      <label for="logo-crop">Logo Cropping</label>
+                      <select id="logo-crop">
+                        <option value="none">Original Shape</option>
+                        <option value="circle">Circular Clip</option>
+                        <option value="square">Square Frame</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                      <input type="checkbox" id="logo-clear-bg" checked style="cursor: pointer;"> Clear QR pixels behind logo
+                    </label>
+                  </div>
+                  <button class="btn-secondary" id="btn-remove-logo" style="width: 100%; margin-top: 0.75rem; padding: 0.5rem;">
+                    <i data-lucide="trash-2"></i> Remove Logo
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Accordion 5: Style Templates & Presets -->
+            <div class="style-accordion-item">
+              <div class="style-accordion-header">
+                One-Click Quick Presets
+                <i data-lucide="chevron-down" class="chevron-icon"></i>
+              </div>
+              <div class="style-accordion-content">
+                <div class="preset-palette-row">
+                  
+                  <button class="preset-card-btn" data-preset="classic-dark">
+                    <div class="preset-preview-circles">
+                      <div class="preset-circle" style="background: #0f172a;"></div>
+                      <div class="preset-circle" style="background: #ffffff;"></div>
+                    </div>
+                    <span class="preset-card-title">Classic Dark</span>
+                  </button>
+
+                  <button class="preset-card-btn" data-preset="neon-sunset">
+                    <div class="preset-preview-circles">
+                      <div class="preset-circle" style="background: #ff007f;"></div>
+                      <div class="preset-circle" style="background: #7928ca;"></div>
+                    </div>
+                    <span class="preset-card-title">Neon Sunset</span>
+                  </button>
+
+                  <button class="preset-card-btn" data-preset="ocean-breeze">
+                    <div class="preset-preview-circles">
+                      <div class="preset-circle" style="background: #0070f3;"></div>
+                      <div class="preset-circle" style="background: #00dfd8;"></div>
+                    </div>
+                    <span class="preset-card-title">Ocean Breeze</span>
+                  </button>
+
+                  <button class="preset-card-btn" data-preset="gold-luxury">
+                    <div class="preset-preview-circles">
+                      <div class="preset-circle" style="background: #c5a880;"></div>
+                      <div class="preset-circle" style="background: #111111;"></div>
+                    </div>
+                    <span class="preset-card-title">Gold Luxury</span>
+                  </button>
+
+                  <button class="preset-card-btn" data-preset="emerald-mint">
+                    <div class="preset-preview-circles">
+                      <div class="preset-circle" style="background: #10b981;"></div>
+                      <div class="preset-circle" style="background: #059669;"></div>
+                    </div>
+                    <span class="preset-card-title">Emerald Mint</span>
+                  </button>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- SECTION 3: CONFIGURATION SETTINGS (MARGINS, ERR CORRECTION) -->
+          <div class="panel-section">
+            <h3 class="panel-title"><i data-lucide="settings"></i> Advanced Options</h3>
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="qr-margin">Border Margin Size</label>
+                <input type="number" id="qr-margin" min="0" max="40" value="10">
+              </div>
+              <div class="form-group">
+                <label for="qr-error-correction">Error Correction Level</label>
+                <select id="qr-error-correction">
+                  <option value="L">L (Low ~7%)</option>
+                  <option value="M">M (Medium ~15%)</option>
+                  <option value="Q">Q (Quartile ~25%)</option>
+                  <option value="H" selected>H (High ~30% - Recommended with logo)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN: STICKY PREVIEW & MOCKUPS -->
+        <div class="preview-sticky">
+          
+          <!-- QR PREVIEW CONTAINER -->
+          <div class="glass-card" style="margin-bottom: 2rem;">
+            <h3 class="panel-title"><i data-lucide="eye"></i> Live QR Preview</h3>
+            
+            <div class="qr-preview-wrapper">
+              <!-- Dynamically Generated QR Canvas gets injected here -->
+              <div id="qr-canvas-holder" class="qr-canvas-container"></div>
+              
+              <!-- Loader overlay -->
+              <div class="qr-loading" id="qr-spinner">
+                <div class="spinner"></div>
+                <span style="font-family: var(--font-heading); font-size: 0.9rem;">Rendering custom styling...</span>
+              </div>
+            </div>
+
+            <!-- Resolution Slider -->
+            <div class="range-slider-group">
+              <div class="slider-labels">
+                <span>Export Quality (Width/Height)</span>
+                <span id="label-resolution">500 px</span>
+              </div>
+              <input type="range" id="qr-resolution" min="200" max="2000" step="50" value="500">
+            </div>
+
+            <!-- Download controls -->
+            <div class="download-actions-grid">
+              <button class="btn-primary" id="btn-download-png">
+                <i data-lucide="download"></i> Download PNG
+              </button>
+              <button class="btn-secondary" id="btn-download-svg">
+                <i data-lucide="file-code"></i> Save Vector SVG
+              </button>
+              <button class="btn-secondary" id="btn-download-jpg">
+                <i data-lucide="image"></i> Save JPEG
+              </button>
+              <button class="btn-secondary" id="btn-save-preset">
+                <i data-lucide="save"></i> Save Template
+              </button>
+              
+              <button class="btn-secondary btn-copy" id="btn-copy-clipboard">
+                <i data-lucide="copy"></i> Copy QR Image to Clipboard
+              </button>
+            </div>
+          </div>
+
+          <!-- MOCKUPS CAROUSEL -->
+          <div class="glass-card">
+            <div class="mockup-header-row">
+              <h3 class="panel-title" style="margin-bottom: 0;"><i data-lucide="shirt"></i> Real-World Mockup Preview</h3>
+              
+              <div class="mockup-selector-carousel">
+                <button class="mockup-tab-btn active" data-mockup="phone">Phone</button>
+                <button class="mockup-tab-btn" data-mockup="card">Business Card</button>
+                <button class="mockup-tab-btn" data-mockup="mug">Mug</button>
+                <button class="mockup-tab-btn" data-mockup="tshirt">T-Shirt</button>
+                <button class="mockup-tab-btn" data-mockup="flyer">Flyer</button>
+              </div>
+            </div>
+
+            <div class="mockup-display-area">
+              
+              <!-- Phone -->
+              <div class="mockup-container active" id="mockup-phone-container">
+                <div class="mockup-phone">
+                  <div class="mockup-phone-notch"></div>
+                  <div class="mockup-phone-screen">
+                    <div class="mockup-phone-time">10:42</div>
+                    <div class="mockup-phone-qr-wrapper">
+                      <img id="mockup-phone-img" src="" alt="QR Preview">
+                    </div>
+                    <div class="mockup-phone-prompt">Scan Lockscreen Code</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Business Card -->
+              <div class="mockup-container" id="mockup-card-container">
+                <div class="mockup-card">
+                  <div class="mockup-card-info">
+                    <div>
+                      <div class="mockup-card-name">Alex Morgan</div>
+                      <div class="mockup-card-title">Senior Creative Director</div>
+                    </div>
+                    <div class="mockup-card-contact">
+                      m: +1 (555) 0199<br>
+                      e: alex@studio.design<br>
+                      w: studio.design
+                    </div>
+                  </div>
+                  <div class="mockup-card-qr-wrapper">
+                    <img id="mockup-card-img" src="" alt="QR Preview">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Mug -->
+              <div class="mockup-container" id="mockup-mug-container">
+                <div class="mockup-mug-scene">
+                  <div class="mockup-mug">
+                    <div class="mockup-mug-handle"></div>
+                    <div class="mockup-mug-qr-wrapper">
+                      <img id="mockup-mug-img" src="" alt="QR Preview">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- T-Shirt -->
+              <div class="mockup-container" id="mockup-tshirt-container">
+                <div class="mockup-tshirt">
+                  <div class="mockup-tshirt-qr-wrapper">
+                    <img id="mockup-tshirt-img" src="" alt="QR Preview">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Flyer -->
+              <div class="mockup-container" id="mockup-flyer-container">
+                <div class="mockup-flyer">
+                  <div class="mockup-flyer-header">Grand Opening</div>
+                  <div class="mockup-flyer-qr-wrapper">
+                    <img id="mockup-flyer-img" src="" alt="QR Preview">
+                  </div>
+                  <div class="mockup-flyer-footer">Scan for 50% discount</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- TAB 2: SCANNER                               -->
+    <!-- ============================================ -->
+    <div id="scan-tab" class="tab-pane">
+      <div class="glass-card scanner-layout">
+        
+        <!-- Left Panel: Webcam / File upload -->
+        <div class="scanner-video-panel">
+          <h3 class="panel-title"><i data-lucide="camera"></i> Active Scan Window</h3>
+          
+          <div class="scanner-controls">
+            <button class="btn-primary scanner-btn" id="btn-start-camera"><i data-lucide="video"></i> Start Camera</button>
+            <button class="btn-secondary scanner-btn" id="btn-stop-camera" style="display: none;"><i data-lucide="video-off"></i> Stop Camera</button>
+            <button class="btn-secondary scanner-btn" id="btn-show-file-scanner"><i data-lucide="file-up"></i> Upload Image</button>
+          </div>
+
+          <!-- Camera Screen -->
+          <div class="webcam-container" id="camera-scanner-view" style="display: none;">
+            <div id="reader"></div>
+            <div class="scanner-laser" id="scanner-laser-line"></div>
+          </div>
+
+          <!-- File Drag and Drop -->
+          <div class="file-drop-zone" id="file-drop-scanner-view">
+            <i data-lucide="image"></i>
+            <p style="font-weight: 600;">Drag & drop a QR code image here</p>
+            <p style="font-size: 0.75rem; color: var(--text-muted);">or click to browse local files</p>
+            <input type="file" id="file-scan-input" accept="image/*" style="display: none;">
+          </div>
+        </div>
+
+        <!-- Right Panel: Results -->
+        <div class="scan-result-panel">
+          <div class="glass-card">
+            <h3 class="panel-title"><i data-lucide="terminal"></i> Scan Results</h3>
+            
+            <div class="form-group" style="margin-top: 1rem;">
+              <label>Decoded Content</label>
+              <div class="result-box" id="scan-result-text">Waiting for scanned QR code...</div>
+            </div>
+
+            <div class="download-actions-grid" style="margin-top: 1.5rem;" id="scan-action-buttons">
+              <button class="btn-primary" id="btn-copy-scan-result" disabled>
+                <i data-lucide="copy"></i> Copy to Clipboard
+              </button>
+              <button class="btn-secondary" id="btn-open-scan-link" disabled>
+                <i data-lucide="external-link"></i> Go to Link
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- TAB 3: BATCH GENERATOR                       -->
+    <!-- ============================================ -->
+    <div id="batch-tab" class="tab-pane">
+      <div class="glass-card batch-layout">
+        
+        <!-- Bulk Input Panel -->
+        <div>
+          <h3 class="panel-title"><i data-lucide="layers"></i> Bulk QR Generation</h3>
+          
+          <div class="form-group">
+            <label for="batch-textarea">Enter List (One item per line)</label>
+            <textarea id="batch-textarea" style="min-height: 200px;" placeholder="https://google.com&#10;https://youtube.com&#10;https://github.com"></textarea>
+          </div>
+
+          <div class="form-group" style="margin: 1.5rem 0;">
+            <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+              * Note: The generator will create individual QR codes using the styling and logo configurations currently defined in the **Create Studio** tab.
+            </p>
+            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+              <input type="checkbox" id="batch-naming-custom" style="cursor: pointer;"> Name files sequentially (qr-1, qr-2...) instead of using content string
+            </label>
+          </div>
+
+          <button class="btn-primary" id="btn-generate-batch" style="width: 100%; padding: 1rem;">
+            <i data-lucide="package-open"></i> Generate and Package ZIP
+          </button>
+        </div>
+
+        <!-- Progress and Output Log Panel -->
+        <div>
+          <h3 class="panel-title"><i data-lucide="terminal"></i> Production Progress</h3>
+          
+          <div class="batch-progress-container" id="batch-progress-panel" style="display: none;">
+            <div style="display: flex; justify-content: space-between; font-weight: 600;">
+              <span id="batch-progress-status">Preparing canvas...</span>
+              <span id="batch-progress-count">0/0</span>
+            </div>
+            
+            <div class="progress-bar-wrapper">
+              <div class="progress-bar-fill" id="batch-progress-bar"></div>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top: 1rem;">
+            <label>Output Activity Log</label>
+            <div class="result-box" id="batch-log-box" style="min-height: 240px; font-size: 0.8rem;">Idle. Add items and click Generate.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- TAB 4: LOCAL HISTORY                         -->
+    <!-- ============================================ -->
+    <div id="history-tab" class="tab-pane">
+      <div class="glass-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+          <h3 class="panel-title" style="margin-bottom: 0;"><i data-lucide="history"></i> Saved Designs & Presets</h3>
+          <button class="btn-secondary" id="btn-clear-history" style="padding: 0.5rem 1rem; border-color: var(--danger-color); color: var(--danger-color);">
+            <i data-lucide="trash-2"></i> Clear History
+          </button>
+        </div>
+
+        <div class="history-grid" id="history-items-grid">
+          <!-- Dynamically populated from localStorage -->
+          <div class="history-empty-state">
+            <i data-lucide="archive"></i>
+            <p style="font-weight: 600;">No templates saved yet</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted); max-width: 300px;">
+              Create designs and click "Save Template" in the Create tab to cache your work here.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- JS DEPENDENCIES -->
+  <!-- qr-code-styling for premium styling generation -->
+  <script src="https://unpkg.com/qr-code-styling@1.5.0-rc.0/lib/qr-code-styling.js"></script>
+  <!-- html5-qrcode for scanning capabilities -->
+  <script src="https://unpkg.com/html5-qrcode/html5-qrcode.min.js"></script>
+  <!-- jszip for packaging batch generator into zip -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  
+  <!-- APP ENGINE LOGIC -->
+  <script src="app.js"></script>
+</body>
+</html>
