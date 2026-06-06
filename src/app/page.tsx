@@ -826,10 +826,10 @@ export default function Home() {
       {/* HEADER */}
       <header>
         <div className="logo-container">
-          <div className="logo-icon">QR</div>
+          <div className="logo-icon">V</div>
           <div className="logo-text">
-            QR STUDIO
-            <span className="logo-subtitle">NextJS Permanent & Custom</span>
+            VALTORIS
+            <span className="logo-subtitle">NextJS Premium QR Generator</span>
           </div>
         </div>
         <div className="nav-actions">
